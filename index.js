@@ -64,7 +64,7 @@ class User{
             .catch(err =>console.log(err));
     };
 
-    async updateById(id){
+    async deleteById(id){
         await userModels.findOneAndDelete(id).exec()
             .then(data =>console.log(data))
             .catch(err =>console.log(err));
@@ -113,6 +113,6 @@ const user = new User(userModels)
 
 // user.update({nom: "toure"}, {age: 76})
 
-// user.updateById({
+// user.deleteById({
 //     nom: "toure"
 // })
