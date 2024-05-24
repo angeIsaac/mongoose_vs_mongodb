@@ -1,6 +1,15 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 
+/*
+    Installation et configuration de Mongoose :
+    Ajoutez MongoDB et Mongoose au package.json du projet. Stockez l'URI de votre base de données 
+    MongoDB Atlas dans le fichier privé .env sous le nom MONGO_URI. Entourez l'URI de guillemets 
+    simples ou doubles et assurez-vous qu'il n'y a aucun espace entre la variable et le « = » et la valeur et « = ».
+    Connectez-vous à la base de données en utilisant la syntaxe suivante :
+
+    `mongoose.connect(<Votre URI>, { useNewUrlParser : true, useUnifiedTopology : true }); `
+ */
 class Database{
     constructor(uri){
         this.uri = uri;
@@ -11,38 +20,6 @@ class Database{
             .then(()=>console.log("connection reussir"))
             .catch(()=>console.log("une erreur est survenu"));
     };
-
-    __userSchema(){
-        const usersShema = new mongoose.Schema({
-            nom:{
-                type: String,
-                required: true,
-            },
-            age: Number,
-            favoriteFoods: [String]
-        });
-        return usersShema;
-    };
-
-    __userMoel(){
-        return mongoose.model("users", this.__userSchema());
-    };
-
-    createOneUser(user){
-        const model = this.__userMoel();
-        const pers = new model(user);
-        pers.save()
-            .then(data => console.log(data))
-            .catch(err =>console.log(err.message));
-    };
-
-    createManyUsers(user){
-        const model = this.__userMoel();
-        const pers = model.insertMany(user);
-        // pers.save()
-        //     .then(data =>console.log(data))
-        //     .catch(err =>console.log(err.message));
-    }
 }
 
 
